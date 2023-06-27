@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 function ParentComponent() {
   const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React', completed: false },
-    { id: 2, text: 'Build a React app', completed: false },
-    { id: 3, text: 'Deploy the React app', completed: false }
+    { id: 1, text: 'Task 1', completed: false },
+    { id: 2, text: 'Task 2', completed: false },
+    { id: 3, text: 'Task 3', completed: false }
   ]);
 
   const handleComplete = (id) => {
@@ -24,26 +24,29 @@ function ParentComponent() {
       <ChildComponent todos={todos} handleComplete={handleComplete} />
     </div>
   );
-  
-  function ChildComponent({ todos, handleComplete }) {
-    return (
-      <div>
-        <h3>Child Component</h3>
-        <ul>
-          {todos.map((todo) => (
-            <li key={todo.id}>
-              {todo.text}{' '}
-              {!todo.completed && (
-                <button onClick={() => handleComplete(todo.id)}>Complete</button>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
 }
 
-
+function ChildComponent({ todos, handleComplete }) {
+  return (
+    <div>
+      <h3>Child Component - Todo List</h3>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.text}{' '}
+            {!todo.completed && (
+              <button
+                onClick={() => handleComplete(todo.id)}
+                data-testid={`complete-button-${todo.id}`}
+              >
+                Complete
+              </button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default ParentComponent;
